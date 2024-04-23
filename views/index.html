@@ -1,0 +1,39 @@
+{{block "index" .}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="css/style.css" rel="stylesheet" />
+  <script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+</head>
+
+<body>
+  {{template "form" .Form}}
+  <hr />
+  {{template "display" .Data}}
+</body>
+
+</html>
+{{ end }}
+{{block "form" . }}
+<form hx-swap="outerHTML" hx-target="#contacts" hx-post="/contacts">
+  name: <input {{if .Values.name}} value="{{ .Values.name}}" {{end}} type="text" name="name" />
+  email: <input {{if .Values.email}} value="{{ .Values.email}}" {{end}} type="text" name="email" />
+  {{if.Errors.email}}
+  <div style="color: red">{{ .Errors.email}}</div>
+  <button type="submit">Create Contact</button>
+</form>
+{{ end }}
+{{block "display" . }}
+<div id="contacts" style="display: flex; flex-direction: column">
+  {{ range .Contacts }}
+  <div>
+    Name: <span>{{ .Name }}</span>
+    Email: <span>{{ .Email }}</span>
+  </div>
+  {{ end }}
+</div>
+{{ end }}
