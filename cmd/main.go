@@ -111,10 +111,11 @@ func main() {
 			formData.Values["name"] = name
 			formData.Values["email"] = email
 			formData.Errors["email"] = "Email already exists"
-			return c.Render(400, "form", formData)
+			return c.Render(422, "form", formData)
 		}
-		page.Data.Contacts = append(page.Data.Contacts, newContact(name, email))
-		return c.Render(http.StatusOK, "display", page)
+		contact := newContact(name, email)
+		page.Data.Contacts = append(page.Data.Contacts, contact)
+		return c.Render(http.StatusOK, "oob-contact", page.Data)
 	})
 
 	e.GET("/blocks", func(c echo.Context) error {
