@@ -38,7 +38,6 @@ type Blocks struct {
 type Count struct {
 	Count int
 }
-
 type Contact struct {
 	Name  string
 	Email string
@@ -65,7 +64,6 @@ func newPage() Page {
 		Form: newFormData(),
 	}
 }
-
 func newFormData() FormData {
 	return FormData{
 		Values: make(map[string]string),
@@ -79,12 +77,11 @@ func newContact(name, email string) Contact {
 		Email: email,
 	}
 }
-
 func newData() Data {
 	return Data{
 		Contacts: Contacts{
-			newContact("Marco", "marcopolo@gmail.com"),
-			newContact("Kebler", "kebler@gmail.com"),
+			newContact("Alice", "marcopolo@gmail.com"),
+			newContact("Nathan", "nathan@gmail.com"),
 		},
 	}
 }
@@ -101,8 +98,9 @@ func main() {
 	page := newPage()
 	e.Renderer = NewTemplates()
 	e.Use(middleware.Logger())
+
 	e.GET("/", func(c echo.Context) error {
-		return c.Render(200, "index", page)
+		return c.Render(http.StatusOK, "index", page)
 	})
 
 	e.POST("/contacts", func(c echo.Context) error {
@@ -115,9 +113,8 @@ func main() {
 			formData.Errors["email"] = "Email already exists"
 			return c.Render(400, "form", formData)
 		}
-
 		page.Data.Contacts = append(page.Data.Contacts, newContact(name, email))
-		return c.Render(200, "display", page.Data)
+		return c.Render(http.StatusOK, "display", page)
 	})
 
 	e.GET("/blocks", func(c echo.Context) error {
