@@ -42,6 +42,7 @@ type Contact struct {
 	Name  string
 	Email string
 }
+
 type Contacts = []Contact
 
 type Data struct {
@@ -115,7 +116,8 @@ func main() {
 		}
 		contact := newContact(name, email)
 		page.Data.Contacts = append(page.Data.Contacts, contact)
-		return c.Render(http.StatusOK, "oob-contact", page.Data)
+		c.Render(200), "form", newFormData())
+		return c.Render(200, "obb-contact", contact)
 	})
 
 	e.GET("/blocks", func(c echo.Context) error {
