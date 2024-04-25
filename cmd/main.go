@@ -116,10 +116,8 @@ func main() {
 		}
 		contact := newContact(name, email)
 		page.Data.Contacts = append(page.Data.Contacts, contact)
-		c.Render(200), "form", newFormData())
-		return c.Render(200, "obb-contact", contact)
-	}
-}
+		return c.Render(200, "form", newFormData())
+	})
 
 	e.GET("/blocks", func(c echo.Context) error {
 		startStr := c.QueryParam("start")
@@ -146,3 +144,4 @@ func main() {
 	})
 
 	e.Logger.Fatal(e.Start(":42069"))
+}
