@@ -104,7 +104,7 @@ func main() {
 		return c.Render(http.StatusOK, "index", page)
 	})
 
-	e.POST("/contacts", func(c echo.Context) error {
+	e.POST("/contacts", func(c echo.Context) error{
 		name := c.FormValue("name")
 		email := c.FormValue("email")
 		if page.Data.hasEmail(email) {
@@ -118,7 +118,8 @@ func main() {
 		page.Data.Contacts = append(page.Data.Contacts, contact)
 		c.Render(200), "form", newFormData())
 		return c.Render(200, "obb-contact", contact)
-	})
+	}
+}
 
 	e.GET("/blocks", func(c echo.Context) error {
 		startStr := c.QueryParam("start")
@@ -145,4 +146,3 @@ func main() {
 	})
 
 	e.Logger.Fatal(e.Start(":42069"))
-}
