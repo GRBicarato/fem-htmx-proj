@@ -5,14 +5,10 @@ import (
 	"io"
 	"net/http"
 	"strconv"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"Types"
 )
-
-type Templates struct {
-	templates *template.Template
-}
 
 func (t *Templates) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	return t.templates.ExecuteTemplate(w, name, data)
@@ -22,41 +18,6 @@ func NewTemplates() *Templates {
 	return &Templates{
 		templates: template.Must(template.ParseGlob("views/*.html")),
 	}
-}
-
-type Block struct {
-	Id int
-}
-
-type Blocks struct {
-	Start  int
-	Next   int
-	More   bool
-	Blocks []Block
-}
-
-type Count struct {
-	Count int
-}
-type Contact struct {
-	Name  string
-	Email string
-}
-
-type Contacts = []Contact
-
-type Data struct {
-	Contacts Contacts
-}
-
-type FormData struct {
-	Values map[string]string
-	Errors map[string]string
-}
-
-type Page struct {
-	Data Data
-	Form FormData
 }
 
 func newPage() Page {

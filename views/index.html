@@ -35,7 +35,7 @@
   name: <input {{ if .Values.name }} value="{{ .Values.name }}" {{ end }} type="text" name="name" />
   email: <input {{ if .Values.email }} value="{{ .Values.email }}" {{ end }} type="text" name="email" />
   {{ if .Errors.email }}
-  <div style="color: red">{{ .Errors.email }}</div>
+  <div style="color: rgb(255, 0, 0)">{{ .Errors.email }}</div>b
   {{ end }}
   <button type="submit">Create Contact</button>
 </form>
